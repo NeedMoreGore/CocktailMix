@@ -14,7 +14,7 @@
 	using namespace std;
 
 	const string VERSION = "0.1";
-	bool debugMode = false;
+	bool debugMode = true;
 
 	void showMainMenu()
 	{
