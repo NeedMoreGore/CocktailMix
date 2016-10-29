@@ -24,36 +24,12 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ingredient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dispenser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cocktail.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CocktailMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CocktailMix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ingredient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dispenser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cocktail.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CocktailMachine.cpp">
+    <ClCompile Include="TestApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
