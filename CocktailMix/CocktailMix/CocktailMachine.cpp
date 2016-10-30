@@ -87,6 +87,9 @@ void CocktailMachine::importCocktailSettings()
 	}
 }
 
+// Sort container by number
+bool CocktailMachine::sortByNumber(Dispenser *lhs, Dispenser *rhs) { int l = lhs->getNumber(); int r = rhs->getNumber(); return l < r; }
+
 void CocktailMachine::importDispenserSettings()
 {
 	fstream f;
@@ -119,9 +122,26 @@ void CocktailMachine::importDispenserSettings()
 		dispenser->setIngredient(*ingredient);
 		this->dispensers.push_back(dispenser);
 	}
+
+	sort(this->dispensers.begin(), this->dispensers.end(), sortByNumber); //sort by dispenser number
+
 	f.close();
 }
 
+void CocktailMachine::makeCocktail(Cocktail* cocktail)
+{
+	cocktail->print();
+}
+
+vector<Cocktail*> CocktailMachine::getCocktails()
+{
+	return cocktails;
+}
+
+vector<Dispenser*> CocktailMachine::getDispensers()
+{
+	return dispensers;
+}
 
 
 
