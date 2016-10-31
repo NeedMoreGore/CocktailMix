@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Dispenser.h"
 
+#include <iostream>
+
 
 Dispenser::Dispenser()
 {
@@ -9,6 +11,7 @@ Dispenser::Dispenser()
 
 Dispenser::~Dispenser()
 {
+	delete this->ingredient;
 }
 
 void Dispenser::setNumber(int number)

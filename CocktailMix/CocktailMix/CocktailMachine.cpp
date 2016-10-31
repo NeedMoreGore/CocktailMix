@@ -15,6 +15,12 @@ CocktailMachine::~CocktailMachine()
 	//export settings to txt files "CocktailSettings.txt" and "DispenserSettings.txt"
 	exportCocktailSettings();
 	exportDispenserSettings();
+
+	for (Cocktail* cocktail : this->cocktails)
+		delete cocktail;
+
+	for (Dispenser* dispenser : this->dispensers)
+		delete dispenser;
 }
 
 void CocktailMachine::exportCocktailSettings()
@@ -78,14 +84,12 @@ void CocktailMachine::importCocktailSettings()
 				Ingredient ingredient;
 				ingredient.setName(line);
 				ingredients.push_back(ingredient);
-				cout << "Pushed to Cocktail: " << ingredient.getName();
 			}
 		}
 
 		cocktail->setName(name);
 		cocktail->setIngredients(ingredients);
 		this->cocktails.push_back(cocktail);
-		system("pause");
 	}
 }
 
@@ -149,33 +153,27 @@ vector<Ingredient*> CocktailMachine::getIngredients()
 {
 	vector<Ingredient*> ingredients;
 
-	cout << "Cocktails-Vector-Size: " << this->cocktails.size();
-
-	for (Cocktail* cocktail : this->cocktails)
+	for (Cocktail* cocktail : this->cocktails) //iterate through all cocktails
 	{
-		for (Ingredient ingredient : cocktail->getIngredients())
+		for (Ingredient ingredient : cocktail->getIngredients()) //iterate through every ingredient of actual cocktail
 		{
 			Ingredient* newIngredient = new Ingredient(ingredient);
 
-			cout << "New-Ingredient: " << ingredient.getName();
-			
-			if (ingredients.empty())
+			if (ingredients.empty()) //if vector is empty
 			{
 				ingredients.push_back(newIngredient);
 			}
-			else
+			else //check if vector contains actual ingredient
 			{
 				for (vector<Ingredient*>::iterator it = ingredients.begin(); it != ingredients.end(); ++it)
 				{
-					if (it[0]->getName() == ingredient.getName())
+					if (it[0]->getName() == ingredient.getName()) //delete if vector contains ingredient
 					{
-						cout << "Deleted: " << ingredient.getName();
 						delete newIngredient;
 						break;
 					}
-					else if(it == --ingredients.end())
+					else if(it == --ingredients.end()) //add if vector doesn't contain the ingredient
 					{
-						cout << "Pushed: " << ingredient.getName();
 						ingredients.push_back(newIngredient);
 						break;
 					}
@@ -183,8 +181,6 @@ vector<Ingredient*> CocktailMachine::getIngredients()
 			}
 		}
 	}
-
-	system("pause");
 	return ingredients;
 }
 

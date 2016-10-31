@@ -2,18 +2,18 @@
 //
 
 #include "stdafx.h"
+#include "Ingredient.h"
+#include "Cocktail.h"
+#include "Dispenser.h"
+#include "Menue.h"
+#include "CocktailMachine.h"
+
 #include <iostream>
 #include <string>
 #include <list>
 #include <limits>
 #include <vector>
-#include "Ingredient.h"
-#include "Cocktail.h"
-#include "Dispenser.h"
 #include <fstream>
-#include "Menue.h"
-
-#include "CocktailMachine.h"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ void createSettingsFile() //debug method
 	f.close();
 
 	f.open("DispenserSettings.txt", ios::out);
-	f << "1;Vodka;\n2;Tequila;\n3;Orangensaft;\n4;Grenadine;";
+	f << "1;Vodka;\n2;Tequila;\n3;Orangensaft;\n4;Grenadine;\n5;free;\n6;free";
 	f.close();
 }
 
@@ -38,9 +38,9 @@ MAIN
 */
 int main()
 {
-	CocktailMachine* machine = new CocktailMachine();
 	//createSettingsFile();
-	Menue* menue = new Menue(VERSION, machine); //constructor calls main menu
+	CocktailMachine* machine = new CocktailMachine(); 
+	Menue* menue = new Menue(VERSION, machine); //constructor calls main menu 
 	delete menue;
 	delete machine;
 	return 0;

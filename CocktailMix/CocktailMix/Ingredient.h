@@ -1,18 +1,17 @@
-	#pragma once
+#pragma once
 
-	#include <string>
+#include <string>
 
-	using namespace std;
+using namespace std;
 
-//Req 05
-	class Ingredient
-	{
-	public:
-		Ingredient();
-		~Ingredient();
-		string getName();
-		void setName(string name);
-	private:
-		string name;
-	};
+class Ingredient
+{
+public:
+	Ingredient();
+	~Ingredient();
+	string getName();
+	void setName(string name);
+private:
+	string name;
+};
 

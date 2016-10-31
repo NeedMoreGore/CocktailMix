@@ -14,32 +14,32 @@ Menue::~Menue()
 {
 }
 
-void Menue::menu_main()
+void Menue::menu_main() //print main menu to console and get user selection
 {
 	system("cls"); //Clear console
 
-	cout << "== CocktailMix | V" << version << " ==" << endl
-		<< "1 - Make Cocktails" << endl
-		<< "2 - Configure Cocktails" << endl
-		<< "0 - Exit" << endl;
+	cout << "== CocktailMix | V" << version << " ==" << endl << endl
+		<< "[1] - Make Cocktails" << endl
+		<< "[2] - Configure Cocktails" << endl << endl
+		<< "[0] - Exit" << endl;
 
 	switch (getSelection())
 	{
-		case 1:
+		case 1:  //print submenu make cocktails
 		{
-			submenu_make(); //show submenu make cocktails
+			submenu_make();
 			break;
 		}
-		case 2:
+		case 2:  //print submenu configure cocktails
 		{
 			submenu_configure();
 			break;
 		}
-		case 0:
+		case 0: //exit program
 		{
 			return;
 		}
-		default:
+		default: //wrong selection
 		{
 			menu_main();
 			break;
@@ -50,29 +50,29 @@ void Menue::menu_main()
 
 void Menue::submenu_make()
 {
-	int selection = 0;
+	int unsigned selection = 0;
 	system("cls"); //Clear console
 
-	cout << "== CocktailMix | Mix it ==" << endl;
-	cout << assembleSubmenu_make();
-	cout << "0 - Exit" << endl;
+	cout << "== CocktailMix | Mix it ==" << endl << endl;
+	cout << assembleSubmenu_make() << endl; //dynamically assemble menu navigation string with available cocktails
+	cout << "[0] - Exit" << endl;
 
 	selection = getSelection();
 
-	if (selection == 0)
+	if (selection == 0) //leave submenu
 	{
 		menu_main();
 		return;
 	}
-	else if (selection <= selectionSubmenu_make().size())
+	else if (selection <= selectionSubmenu_make().size()) //compare if input is in available selection range (= number of cocktails provided in settings)
 	{
 		system("cls");
-		selectionSubmenu_make()[selection]->print();
+		selectionSubmenu_make()[selection]->print(); //print selected cocktail
 		system("pause");
-		submenu_make();
+		submenu_make(); //show submenu again
 		return;
 	}
-	else
+	else //do nothing
 	{
 		submenu_make();
 		return;
@@ -83,27 +83,27 @@ void Menue::submenu_configure()
 {
 	system("cls"); //Clear console
 
-	cout << "== CocktailMix | Configure ==" << endl
-		<< "1 - Configure Dispensers" << endl
-		<< "2 - List Cocktail" << endl
-		<< "3 - Add Cocktail" << endl
-		<< "4 - Edit Cocktail" << endl
-		<< "5 - Delete Cocktail" << endl
-		<< "0 - Exit" << endl;
+	cout << "== CocktailMix | Configure ==" << endl << endl
+		<< "[1] - Configure Dispensers" << endl
+		<< "[2] - List Cocktail" << endl
+		<< "[3] - Add Cocktail" << endl
+		<< "[4] - Edit Cocktail" << endl
+		<< "[5] - Delete Cocktail" << endl << endl
+		<< "[0] - Exit" << endl;
 
 	switch (getSelection())
 	{
-		case 0:
+		case 0: //leave submenu
 		{
 			menu_main();
 			return;
 		}
-		case 1:
+		case 1: //enter submenu configure dispenser
 		{
 			submenu_configureDispenser();
 			break;
 		}
-		default:
+		default: //do nothing
 		{
 			submenu_configure();
 			break;
@@ -115,18 +115,18 @@ void Menue::submenu_configureDispenser()
 {
 	system("cls"); //Clear console
 
-	cout << "== CocktailMix | Configure Dispenser ==" << endl;
-	cout << assembleSubmenu_configureDispenser();
-	cout << "0 - Exit";
+	cout << "== CocktailMix | Configure Dispenser ==" << endl << endl;
+	cout << assembleSubmenu_configureDispenser() << endl; //assemble menu navigation string for available dispensers (provided by dispenser settings)
+	cout << "[0] - Exit" << endl;
 
 	switch (getSelection())
 	{
-		case 0:
+		case 0: //leave submenu
 		{
 			submenu_configure();
 			return;
 		}
-		case 1:
+		case 1: //select dispenser(dispenserNumber) and open new submenu -> select ingredient for dispenser
 		{
 			submenu_selectIngredient(1);
 			break;
@@ -156,7 +156,7 @@ void Menue::submenu_configureDispenser()
 			submenu_selectIngredient(6);
 			break;
 		}
-		default:
+		default: //do nothing
 		{
 			submenu_configureDispenser();
 			break;
@@ -189,22 +189,22 @@ void Menue::submenu_selectIngredient(int dispenserNumber)
 
 	system("cls"); //Clear console
 
-	cout << "== CocktailMix | Select Ingredient ==" << endl;
-	cout << assembleSubmenu_selectIngredient();
-	cout << "0 - Exit";
+	cout << "== CocktailMix | Select Ingredient ==" << endl << endl;
+	cout << assembleSubmenu_selectIngredient() << endl; //assemble navigation string for ingredients (provided by cocktails in cocktail settings)
+	cout << "[0] - Exit" << endl;
 
 	switch (getSelection())
 	{
-		case 0:
+		case 0: //leave submenu
 		{
-			submenu_configure();
+			submenu_configureDispenser();
 			return;
 		}
-		case 1:
+		case 1: //assign new ingredient to dispenser and exit submenu
 		{
-			tempDispenser = machine->getDispensers().at(dispenserNumber - 1);
-			tempDispenser->setIngredient(*machine->getIngredients().at(0));
-			submenu_configureDispenser();
+			tempDispenser = machine->getDispensers().at(dispenserNumber - 1); //get pntr to dispenser
+			tempDispenser->setIngredient(*machine->getIngredients().at(0)); //set new ingredient
+			submenu_configureDispenser(); //exit submenu
 			break;
 		}
 		case 2:
@@ -242,7 +242,7 @@ void Menue::submenu_selectIngredient(int dispenserNumber)
 			submenu_configureDispenser();
 			break;
 		}
-		default:
+		default: //do nothing
 		{
 			submenu_selectIngredient(dispenserNumber);
 			break;
@@ -259,7 +259,7 @@ string Menue::assembleSubmenu_make()
 	for (vector<Cocktail*>::iterator it = cocktails.begin(); it != cocktails.end(); ++it) //iterate through vector of cocktails
 	{
 		i++;
-		cocktailList.append(to_string(i) + " - " + it[0]->getName() + "\n");
+		cocktailList.append("[" + to_string(i) + "]" + " - " + it[0]->getName() + "\n"); //append cocktails to string
 	}
 	return cocktailList;
 }
@@ -274,7 +274,7 @@ map<int, Cocktail*> Menue::selectionSubmenu_make()
 	for (vector<Cocktail*>::iterator it = cocktails.begin(); it != cocktails.end(); ++it) //iterate through vector of cocktails
 	{
 		i++;
-		cocktailMap[i] = it[0];
+		cocktailMap[i] = it[0]; //save pointer to cocktail in map, need for dynamic selection (=> cocktailMap[selection] = pntr to selected cocktail)
 	}
 	return cocktailMap;
 }
@@ -287,35 +287,30 @@ string Menue::assembleSubmenu_configureDispenser()
 	vector<Dispenser*> dispensers = this->machine->getDispensers();
 	Dispenser* pntr = dispensers[pntrPos];
 
-	for (int i = 1; i <= 6; i++)
+	for (int i = 1; i <= 6; i++) //note: only works if vector<Dispenser*> is sorted
 	{
-		if (pntr->getNumber() == i && pntr != NULL)
+		if (pntr->getNumber() == i && pntr != NULL) //check if dispenser is configured
 		{
 			ingredient = pntr->getIngredient().getName();
 			if (dispensers.size() > pntrPos + 1)
 				pntrPos++;
 			pntr = dispensers[pntrPos];
 		}
-		else
+		else //set to "free" if dispenser holds no ingredient
 			ingredient = "free";
 
-		dispenserList.append(to_string(i) + " - " + ingredient + "\n");
+		dispenserList.append("[" + to_string(i) + "]" + " - " + ingredient + "\n");
 	}
 	return dispenserList;
-
-	//TODO: redo behaviour
 }
 
 string Menue::assembleSubmenu_selectIngredient()
 {
 	string ingredientsList = "";
 
-	cout << "Size: " << machine->getIngredients().size();
-
-	for (unsigned int i = 0; i < machine->getIngredients().size(); i++)
+	for (unsigned int i = 0; i < machine->getIngredients().size(); i++) //get all available ingredients and append to string
 	{
-		cout << "Name " << machine->getIngredients().at(i)->getName() << endl;
-		ingredientsList.append(to_string(i + 1) + " - " + machine->getIngredients().at(i)->getName() + "\n");
+		ingredientsList.append("[" + to_string(i + 1) + "]" + " - " + machine->getIngredients().at(i)->getName() + "\n");
 	}
 
 	return ingredientsList;
