@@ -16,6 +16,7 @@
 			Ingredient getIngredient();
 
 		private:
+
 			unsigned int number;
 			Ingredient *ingredient;
 	};

@@ -78,12 +78,14 @@ void CocktailMachine::importCocktailSettings()
 				Ingredient ingredient;
 				ingredient.setName(line);
 				ingredients.push_back(ingredient);
+				cout << "Pushed to Cocktail: " << ingredient.getName();
 			}
 		}
 
 		cocktail->setName(name);
 		cocktail->setIngredients(ingredients);
 		this->cocktails.push_back(cocktail);
+		system("pause");
 	}
 }
 
@@ -135,12 +137,55 @@ void CocktailMachine::makeCocktail(Cocktail* cocktail)
 
 vector<Cocktail*> CocktailMachine::getCocktails()
 {
-	return cocktails;
+	return this->cocktails;
 }
 
 vector<Dispenser*> CocktailMachine::getDispensers()
 {
-	return dispensers;
+	return this->dispensers;
+}
+
+vector<Ingredient*> CocktailMachine::getIngredients()
+{
+	vector<Ingredient*> ingredients;
+
+	cout << "Cocktails-Vector-Size: " << this->cocktails.size();
+
+	for (Cocktail* cocktail : this->cocktails)
+	{
+		for (Ingredient ingredient : cocktail->getIngredients())
+		{
+			Ingredient* newIngredient = new Ingredient(ingredient);
+
+			cout << "New-Ingredient: " << ingredient.getName();
+			
+			if (ingredients.empty())
+			{
+				ingredients.push_back(newIngredient);
+			}
+			else
+			{
+				for (vector<Ingredient*>::iterator it = ingredients.begin(); it != ingredients.end(); ++it)
+				{
+					if (it[0]->getName() == ingredient.getName())
+					{
+						cout << "Deleted: " << ingredient.getName();
+						delete newIngredient;
+						break;
+					}
+					else if(it == --ingredients.end())
+					{
+						cout << "Pushed: " << ingredient.getName();
+						ingredients.push_back(newIngredient);
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	system("pause");
+	return ingredients;
 }
 
 

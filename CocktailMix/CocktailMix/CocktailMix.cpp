@@ -31,7 +31,6 @@ void createSettingsFile() //debug method
 	f.open("DispenserSettings.txt", ios::out);
 	f << "1;Vodka;\n2;Tequila;\n3;Orangensaft;\n4;Grenadine;";
 	f.close();
-
 }
 
 /*
@@ -43,6 +42,7 @@ int main()
 	//createSettingsFile();
 	Menue* menue = new Menue(VERSION, machine); //constructor calls main menu
 	delete menue;
+	delete machine;
 	return 0;
 }
 
