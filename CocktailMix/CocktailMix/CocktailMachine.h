@@ -28,7 +28,7 @@ private:
 	vector<Dispenser*> dispensers;
 	vector<Cocktail*> cocktails;
 	
-	static bool CocktailMachine::sortByNumber(Dispenser *lhs, Dispenser *rhs);
+	static bool sortByNumber(Dispenser *lhs, Dispenser *rhs);
 	void exportCocktailSettings();
 	void exportDispenserSettings();
 	void importCocktailSettings();

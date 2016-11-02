@@ -20,12 +20,12 @@ using namespace std;
 const string VERSION = "0.2";
 
 
-void createSettingsFile() //debug method
+void createSettingsFile() //create test data
 {
 	fstream f;
 
 	f.open("CocktailSettings.txt", ios::out);
-	f << "Tequila Sunrise;Tequila;Orangensaft;Grenadine;\nScrewdriver;Vodka;Orangensaft;";
+	f << "Tequila Sunrise;Tequila;40;Orangensaft;150;Grenadine;10;\nScrewdriver;Vodka;40;Orangensaft;80;";
 	f.close();
 
 	f.open("DispenserSettings.txt", ios::out);
@@ -40,7 +40,7 @@ int main()
 {
 	//createSettingsFile();
 	CocktailMachine* machine = new CocktailMachine(); 
-	Menue* menue = new Menue(VERSION, machine); //constructor calls main menu 
+	Menue* menue = new Menue(VERSION, machine); //constructor call starts menu 
 	delete menue;
 	delete machine;
 	return 0;

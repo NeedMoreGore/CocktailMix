@@ -32,7 +32,10 @@ void CocktailMachine::exportCocktailSettings()
 	{
 		f << cocktail->getName() << ";"; //get cocktail name
 		for (Ingredient ingredient : cocktail->getIngredients()) //get cocktail ingredients
+		{
 			f << ingredient.getName() << ";";
+			f << cocktail->getQuantity(ingredient) << ";";
+		}
 		f << "\n"; //add new line
 	}
 	f.close();
@@ -81,10 +84,16 @@ void CocktailMachine::importCocktailSettings()
 				name = line;
 			else //get ingredients
 			{
+				//set ingredient name
 				Ingredient ingredient;
 				ingredient.setName(line);
 				ingredients.push_back(ingredient);
+
+				//set ingredient quantity
+				getline(is, line, ';');
+				cocktail->setQuantity(ingredient, line);
 			}
+
 		}
 
 		cocktail->setName(name);

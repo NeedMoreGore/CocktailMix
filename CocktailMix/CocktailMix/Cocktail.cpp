@@ -38,7 +38,16 @@ void Cocktail::print() //print cocktail name + ingredients
 	cout << "Name: " << this->name << endl << endl;
 	for (Ingredient ingredient : this->ingredients)
 	{
-		cout << " => " << ingredient.getName() << endl;
+		cout << " => " << getQuantity(ingredient) << " ml \t" << ingredient.getName() << endl;
 	}
 	cout << endl;
+}
+
+void Cocktail::setQuantity(Ingredient i, string value) 
+{
+	this->quantity[i.getName()] = value;
+}
+string Cocktail::getQuantity(Ingredient i)
+{
+	return this->quantity[i.getName()];
 }
