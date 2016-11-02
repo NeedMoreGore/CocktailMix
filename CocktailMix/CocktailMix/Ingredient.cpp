@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Ingredient.h"
 
+#include <iostream>
+
 
 Ingredient::Ingredient()
 {

@@ -1,0 +1,2 @@
+Tequila Sunrise;Tequila;40;Orangensaft;150;Grenadine;10;
+Screwdriver;Vodka;40;Orangensaft;80;
