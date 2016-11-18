@@ -2,7 +2,7 @@
 #include "Menue.h"
 
 
-Menue::Menue(string version, CocktailMachine* machine)
+Menue::Menue(string version, CocktailInterface* machine)
 {
 	this->machine = machine;
 	this->version = version;

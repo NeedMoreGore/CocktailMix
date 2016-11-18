@@ -12,7 +12,7 @@ using namespace std;
 class Menue
 {
 public:
-	Menue(string version, CocktailMachine* machine);
+	Menue(string version, CocktailInterface* machine);
 	~Menue();
 
 private:
@@ -27,6 +27,6 @@ private:
 	string assembleSubmenu_configureDispenser();
 	string assembleSubmenu_selectIngredient();
 	string version;
-	CocktailMachine* machine;
+	CocktailInterface* machine;
 };
 

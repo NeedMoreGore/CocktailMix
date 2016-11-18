@@ -24,12 +24,12 @@ void createSettingsFile() //create test data
 {
 	fstream f;
 
-	f.open("CocktailSettings.txt", ios::out);
+	f.open("Cocktail.txt", ios::out);
 	f << "Tequila Sunrise;Tequila;40;Orangensaft;150;Grenadine;10;\nScrewdriver;Vodka;40;Orangensaft;80;";
 	f.close();
 
-	f.open("DispenserSettings.txt", ios::out);
-	f << "1;Vodka;\n2;Tequila;\n3;Orangensaft;\n4;Grenadine;\n5;free;\n6;free";
+	f.open("Dispenser.txt", ios::out);
+	f << "1;Vodka;\n2;Tequila;\n3;Orangensaft;\n4;Grenadine;\n5;free;\n6;free;";
 	f.close();
 }
 
@@ -39,10 +39,10 @@ MAIN
 int main()
 {
 	//createSettingsFile();
-	CocktailMachine* machine = new CocktailMachine(); 
+	CocktailInterface* machine = new CocktailSimulator();
 	Menue* menue = new Menue(VERSION, machine); //constructor call starts menu 
 	delete menue;
-	delete machine;
+	delete (CocktailSimulator*)machine; //Cast to CocktailSimulator, otherwise destructor cannot be called
 	return 0;
 }
 

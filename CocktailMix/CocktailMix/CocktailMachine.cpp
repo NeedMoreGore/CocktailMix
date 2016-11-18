@@ -2,7 +2,7 @@
 #include "CocktailMachine.h"
 
 
-CocktailMachine::CocktailMachine()
+CocktailSimulator::CocktailSimulator()
 {
 	//Load settings from txt files
 	importCocktailSettings();
@@ -10,7 +10,7 @@ CocktailMachine::CocktailMachine()
 }
 
 
-CocktailMachine::~CocktailMachine()
+CocktailSimulator::~CocktailSimulator()
 {
 	//export settings to txt files "CocktailSettings.txt" and "DispenserSettings.txt"
 	exportCocktailSettings();
@@ -23,10 +23,10 @@ CocktailMachine::~CocktailMachine()
 		delete dispenser;
 }
 
-void CocktailMachine::exportCocktailSettings()
+void CocktailInterface::exportCocktailSettings()
 {
 	ofstream f;
-	f.open("CocktailSettings.txt");
+	f.open(COCKTAIL_SETTINGS);
 
 	for (Cocktail* cocktail : cocktails)
 	{
@@ -41,10 +41,10 @@ void CocktailMachine::exportCocktailSettings()
 	f.close();
 }
 
-void CocktailMachine::exportDispenserSettings()
+void CocktailInterface::exportDispenserSettings()
 {
 	ofstream f;
-	f.open("DispenserSettings.txt");
+	f.open(DISPENSER_SETTINGS);
 
 	for (vector<Dispenser*>::iterator it = dispensers.begin(); it != dispensers.end(); ++it) //iterate through vector of dispensers
 	{
@@ -55,14 +55,14 @@ void CocktailMachine::exportDispenserSettings()
 }
 
 
-void CocktailMachine::importCocktailSettings()
+void CocktailInterface::importCocktailSettings()
 {
 	fstream f;
 	stringstream is;
 	string line;
 	int i = 0; //keep track of iterations, first iteration of a line is the name of the cocktail followed by the ingredients
 
-	f.open("CocktailSettings.txt", ios::in);
+	f.open(COCKTAIL_SETTINGS, ios::in);
 
 	while (getline(f, line))
 	{
@@ -103,9 +103,9 @@ void CocktailMachine::importCocktailSettings()
 }
 
 // Sort container by number
-bool CocktailMachine::sortByNumber(Dispenser *lhs, Dispenser *rhs) { int l = lhs->getNumber(); int r = rhs->getNumber(); return l < r; }
+bool CocktailInterface::sortByNumber(Dispenser *lhs, Dispenser *rhs) { int l = lhs->getNumber(); int r = rhs->getNumber(); return l < r; }
 
-void CocktailMachine::importDispenserSettings()
+void CocktailInterface::importDispenserSettings()
 {
 	fstream f;
 	stringstream is;
@@ -113,7 +113,7 @@ void CocktailMachine::importDispenserSettings()
 	string temp[2]; //save dispenser values, [0]:dispenser number, [1]:ingredient name
 	int i = 0;
 
-	f.open("DispenserSettings.txt", ios::in);
+	f.open(DISPENSER_SETTINGS, ios::in);
 
 	while (getline(f, line))
 	{
@@ -143,22 +143,27 @@ void CocktailMachine::importDispenserSettings()
 	f.close();
 }
 
-void CocktailMachine::makeCocktail(Cocktail* cocktail)
+void CocktailSimulator::makeCocktail(Cocktail* cocktail)
 {
 	cocktail->print();
 }
 
-vector<Cocktail*> CocktailMachine::getCocktails()
+void CocktailSimulator::makeCocktail(int i)
+{
+	cocktails.at(i)->print();
+}
+
+vector<Cocktail*> CocktailInterface::getCocktails()
 {
 	return this->cocktails;
 }
 
-vector<Dispenser*> CocktailMachine::getDispensers()
+vector<Dispenser*> CocktailInterface::getDispensers()
 {
 	return this->dispensers;
 }
 
-vector<Ingredient*> CocktailMachine::getIngredients()
+vector<Ingredient*> CocktailInterface::getIngredients()
 {
 	vector<Ingredient*> ingredients;
 
