@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Menue.h"
 
+Menue* Menue::menue;
 
 Menue::Menue(string version, CocktailInterface* machine)
 {
@@ -9,9 +10,20 @@ Menue::Menue(string version, CocktailInterface* machine)
 	menu_main();
 }
 
-
 Menue::~Menue()
 {
+}
+
+void Menue::createMenue(string version, CocktailInterface * machine)
+{
+	if (menue == nullptr)
+		menue = new Menue(version,machine);
+}
+
+void Menue::releaseMenue()
+{
+	if (menue != nullptr)
+		delete menue;
 }
 
 void Menue::menu_main() //print main menu to console and get user selection
@@ -55,7 +67,7 @@ void Menue::submenu_make()
 
 	cout << "== CocktailMix | Mix it ==" << endl << endl;
 	cout << assembleSubmenu_make() << endl; //dynamically assemble menu navigation string with available cocktails
-	cout << "[0] - Exit" << endl;
+	cout << "[0] - Return" << endl;
 
 	selection = getSelection();
 
@@ -89,7 +101,7 @@ void Menue::submenu_configure()
 		<< "[3] - Add Cocktail" << endl
 		<< "[4] - Edit Cocktail" << endl
 		<< "[5] - Delete Cocktail" << endl << endl
-		<< "[0] - Exit" << endl;
+		<< "[0] - Return" << endl;
 
 	switch (getSelection())
 	{
@@ -117,7 +129,7 @@ void Menue::submenu_configureDispenser()
 
 	cout << "== CocktailMix | Configure Dispenser ==" << endl << endl;
 	cout << assembleSubmenu_configureDispenser() << endl; //assemble menu navigation string for available dispensers (provided by dispenser settings)
-	cout << "[0] - Exit" << endl;
+	cout << "[0] - Return" << endl;
 
 	switch (getSelection())
 	{
@@ -191,10 +203,11 @@ void Menue::submenu_selectIngredient(int dispenserNumber)
 
 	cout << "== CocktailMix | Select Ingredient ==" << endl << endl;
 	cout << assembleSubmenu_selectIngredient() << endl; //assemble navigation string for ingredients (provided by cocktails in cocktail settings)
-	cout << "[0] - Exit" << endl;
-
-	switch (getSelection())
+	cout << "[0] - Return" << endl;
+	try
 	{
+		switch (getSelection())
+		{
 		case 0: //leave submenu
 		{
 			submenu_configureDispenser();
@@ -242,11 +255,23 @@ void Menue::submenu_selectIngredient(int dispenserNumber)
 			submenu_configureDispenser();
 			break;
 		}
+		case 7:
+		{
+			tempDispenser = machine->getDispensers().at(dispenserNumber - 1);
+			tempDispenser->removeIngredient();
+			submenu_configureDispenser();
+			break;
+		}
 		default: //do nothing
 		{
 			submenu_selectIngredient(dispenserNumber);
 			break;
 		}
+		}
+	}
+	catch (exception e)
+	{
+		submenu_selectIngredient(dispenserNumber);
 	}
 }
 
@@ -289,7 +314,7 @@ string Menue::assembleSubmenu_configureDispenser()
 
 	for (int i = 1; i <= 6; i++) //note: only works if vector<Dispenser*> is sorted
 	{
-		if (pntr->getNumber() == i && pntr != NULL) //check if dispenser is configured
+		if (pntr->getNumber() == i && pntr != nullptr) //check if dispenser is configured
 		{
 			ingredient = pntr->getIngredient().getName();
 			if (dispensers.size() > pntrPos + 1)
@@ -312,6 +337,8 @@ string Menue::assembleSubmenu_selectIngredient()
 	{
 		ingredientsList.append("[" + to_string(i + 1) + "]" + " - " + machine->getIngredients().at(i)->getName() + "\n");
 	}
+
+	ingredientsList.append("\n[7] - Remove ingredient from dispenser \n");
 
 	return ingredientsList;
 }

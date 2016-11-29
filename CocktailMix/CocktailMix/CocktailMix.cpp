@@ -40,9 +40,11 @@ int main()
 {
 	//createSettingsFile();
 	CocktailInterface* machine = new CocktailSimulator();
-	Menue* menue = new Menue(VERSION, machine); //constructor call starts menu 
-	delete menue;
+	//Menue* menue = new Menue(VERSION, machine); //constructor call starts menu 
+	//delete menue;
+	Menue::createMenue(VERSION, machine);
 	delete (CocktailSimulator*)machine; //Cast to CocktailSimulator, otherwise destructor cannot be called
+	Menue::releaseMenue();
 	return 0;
 }
 

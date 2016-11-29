@@ -1,6 +1,6 @@
-1;Tequila;
+1;free;
 2;Tequila;
 3;Orangensaft;
-4;Grenadine;
+4;Vodka;
 5;free;
-6;Grenadine;
+6;free;

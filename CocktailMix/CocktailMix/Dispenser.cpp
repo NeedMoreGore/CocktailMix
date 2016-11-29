@@ -32,3 +32,8 @@ Ingredient Dispenser::getIngredient()
 {
 	return *ingredient;
 }
+
+void Dispenser::removeIngredient()
+{
+	this->ingredient->setName("free");
+}

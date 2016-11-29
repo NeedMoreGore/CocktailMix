@@ -14,6 +14,7 @@ class Dispenser
 		void setNumber(int number);
 		int getNumber();
 		void setIngredient(Ingredient &ingredient);
+		void removeIngredient();
 		Ingredient getIngredient();
 
 	private:
