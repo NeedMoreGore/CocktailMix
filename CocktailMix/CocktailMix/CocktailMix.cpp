@@ -7,6 +7,7 @@
 #include "Dispenser.h"
 #include "Menue.h"
 #include "CocktailMachine.h"
+#include "CocktailSimulator.h"
 
 #include <iostream>
 #include <string>
@@ -39,7 +40,7 @@ MAIN
 int main()
 {
 	//createSettingsFile();
-	CocktailInterface* machine = new CocktailSimulator();
+	CocktailMachine* machine = new CocktailSimulator();
 	//Menue* menue = new Menue(VERSION, machine); //constructor call starts menu 
 	//delete menue;
 	Menue::createMenue(VERSION, machine);

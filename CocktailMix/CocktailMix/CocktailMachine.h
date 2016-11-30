@@ -12,7 +12,7 @@
 
 using namespace std;
 
-class CocktailInterface
+class CocktailMachine
 {
 public:
 	vector<Cocktail*> getCocktails();
@@ -37,16 +37,3 @@ protected:
 
 	static bool sortByNumber(Dispenser *lhs, Dispenser *rhs);
 };
-
-//Implementation of CocktailInterface
-class CocktailSimulator : public CocktailInterface
-{
-public:	
-	CocktailSimulator();
-	~CocktailSimulator();
-
-	void makeCocktail(Cocktail*);
-	void makeCocktail(int);
-private:
-};
-

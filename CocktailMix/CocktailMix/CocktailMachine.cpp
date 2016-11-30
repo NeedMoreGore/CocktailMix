@@ -2,28 +2,8 @@
 #include "CocktailMachine.h"
 
 
-CocktailSimulator::CocktailSimulator()
-{
-	//Load settings from txt files
-	importCocktailSettings();
-	importDispenserSettings();
-}
 
-
-CocktailSimulator::~CocktailSimulator()
-{
-	//export settings to txt files "CocktailSettings.txt" and "DispenserSettings.txt"
-	exportCocktailSettings();
-	exportDispenserSettings();
-
-	for (Cocktail* cocktail : this->cocktails)
-		delete cocktail;
-
-	for (Dispenser* dispenser : this->dispensers)
-		delete dispenser;
-}
-
-void CocktailInterface::exportCocktailSettings()
+void CocktailMachine::exportCocktailSettings()
 {
 	ofstream f;
 	f.open(COCKTAIL_SETTINGS);
@@ -41,7 +21,7 @@ void CocktailInterface::exportCocktailSettings()
 	f.close();
 }
 
-void CocktailInterface::exportDispenserSettings()
+void CocktailMachine::exportDispenserSettings()
 {
 	ofstream f;
 	f.open(DISPENSER_SETTINGS);
@@ -55,7 +35,7 @@ void CocktailInterface::exportDispenserSettings()
 }
 
 
-void CocktailInterface::importCocktailSettings()
+void CocktailMachine::importCocktailSettings()
 {
 	fstream f;
 	stringstream is;
@@ -103,9 +83,9 @@ void CocktailInterface::importCocktailSettings()
 }
 
 // Sort container by number
-bool CocktailInterface::sortByNumber(Dispenser *lhs, Dispenser *rhs) { int l = lhs->getNumber(); int r = rhs->getNumber(); return l < r; }
+bool CocktailMachine::sortByNumber(Dispenser *lhs, Dispenser *rhs) { int l = lhs->getNumber(); int r = rhs->getNumber(); return l < r; }
 
-void CocktailInterface::importDispenserSettings()
+void CocktailMachine::importDispenserSettings()
 {
 	fstream f;
 	stringstream is;
@@ -143,27 +123,17 @@ void CocktailInterface::importDispenserSettings()
 	f.close();
 }
 
-void CocktailSimulator::makeCocktail(Cocktail* cocktail)
-{
-	cocktail->print();
-}
-
-void CocktailSimulator::makeCocktail(int i)
-{
-	cocktails.at(i)->print();
-}
-
-vector<Cocktail*> CocktailInterface::getCocktails()
+vector<Cocktail*> CocktailMachine::getCocktails()
 {
 	return this->cocktails;
 }
 
-vector<Dispenser*> CocktailInterface::getDispensers()
+vector<Dispenser*> CocktailMachine::getDispensers()
 {
 	return this->dispensers;
 }
 
-vector<Ingredient*> CocktailInterface::getIngredients()
+vector<Ingredient*> CocktailMachine::getIngredients()
 {
 	vector<Ingredient*> ingredients;
 

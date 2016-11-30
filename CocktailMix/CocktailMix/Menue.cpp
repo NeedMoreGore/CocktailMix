@@ -3,7 +3,7 @@
 
 Menue* Menue::menue;
 
-Menue::Menue(string version, CocktailInterface* machine)
+Menue::Menue(string version, CocktailMachine* machine)
 {
 	this->machine = machine;
 	this->version = version;
@@ -14,7 +14,7 @@ Menue::~Menue()
 {
 }
 
-void Menue::createMenue(string version, CocktailInterface * machine)
+void Menue::createMenue(string version, CocktailMachine * machine)
 {
 	if (menue == nullptr)
 		menue = new Menue(version,machine);
@@ -288,6 +288,12 @@ string Menue::assembleSubmenu_make()
 	}
 	return cocktailList;
 }
+/*
+Map every available cocktail to a different int value and return the map.
+Needed for cocktail selection by user input
+
+@return: map<int, Cocktail*>
+*/
 
 map<int, Cocktail*> Menue::selectionSubmenu_make()
 {
@@ -303,16 +309,22 @@ map<int, Cocktail*> Menue::selectionSubmenu_make()
 	}
 	return cocktailMap;
 }
+
+/*
+Dynamically create menu string with dispenser configurations
+
+@return: string
+*/
 string Menue::assembleSubmenu_configureDispenser()
 {
-	string dispenserList = "";
-	string ingredient;
-	unsigned int pntrPos = 0;
-	int i = 6; //dispenserSize
-	vector<Dispenser*> dispensers = this->machine->getDispensers();
-	Dispenser* pntr = dispensers[pntrPos];
+	string dispenserList = "";										//menue string (return value) 
+	string ingredient;												//ingredient name
+	unsigned int pntrPos = 0;										//vector position
+	int dispenserSize = 6;											//max. dispenser size
+	vector<Dispenser*> dispensers = this->machine->getDispensers(); //vector with all dispensers
+	Dispenser* pntr = dispensers[pntrPos];							//pointer to first dispenser
 
-	for (int i = 1; i <= 6; i++) //note: only works if vector<Dispenser*> is sorted
+	for (int i = 1; i <= dispenserSize; i++) //note: only works if vector<Dispenser*> is sorted
 	{
 		if (pntr->getNumber() == i && pntr != nullptr) //check if dispenser is configured
 		{
@@ -326,9 +338,15 @@ string Menue::assembleSubmenu_configureDispenser()
 
 		dispenserList.append("[" + to_string(i) + "]" + " - " + ingredient + "\n");
 	}
+
 	return dispenserList;
 }
 
+/*
+Dynamically create menu string, a selection menu with all ingredients, to configure the selected dispenser
+
+@return: string
+*/
 string Menue::assembleSubmenu_selectIngredient()
 {
 	string ingredientsList = "";

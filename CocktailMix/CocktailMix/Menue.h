@@ -16,10 +16,10 @@ public:
 	Menue(Menue& menue) = delete;
 	~Menue();
 
-	static void createMenue(string version, CocktailInterface* machine);
+	static void createMenue(string version, CocktailMachine* machine);
 	static void releaseMenue();
 private:
-	Menue(string version, CocktailInterface* machine);
+	Menue(string version, CocktailMachine* machine);
 	void menu_main();
 	void submenu_make();
 	void submenu_configure();
@@ -31,7 +31,7 @@ private:
 	string assembleSubmenu_configureDispenser();
 	string assembleSubmenu_selectIngredient();
 	string version;
-	CocktailInterface* machine;
+	CocktailMachine* machine;
 	static Menue* menue;
 };
 
