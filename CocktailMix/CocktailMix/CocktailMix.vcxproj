@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cocktail.h" />
+    <ClInclude Include="CocktailBot.h" />
     <ClInclude Include="CocktailMachine.h" />
     <ClInclude Include="CocktailSimulator.h" />
     <ClInclude Include="Dispenser.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cocktail.cpp" />
+    <ClCompile Include="CocktailBot.cpp" />
     <ClCompile Include="CocktailMachine.cpp" />
     <ClCompile Include="CocktailMix.cpp" />
     <ClCompile Include="CocktailSimulator.cpp" />
