@@ -18,6 +18,7 @@ public:
 
 	static void createMenue(string version, CocktailMachine* machine);
 	static void releaseMenue();
+	static int menu_selectMachine();
 private:
 	Menue(string version, CocktailMachine* machine);
 	void menu_main();

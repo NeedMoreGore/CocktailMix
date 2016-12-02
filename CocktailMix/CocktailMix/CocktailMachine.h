@@ -26,6 +26,7 @@ public:
 protected:
 	const string COCKTAIL_SETTINGS = "Cocktail.txt";
 	const string DISPENSER_SETTINGS = "Dispenser.txt";
+	static const int DISPENSER_SIZE = 6;
 
 	vector<Dispenser*> dispensers;
 	vector<Cocktail*> cocktails;

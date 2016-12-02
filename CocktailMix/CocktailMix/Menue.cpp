@@ -26,6 +26,48 @@ void Menue::releaseMenue()
 		delete menue;
 }
 
+int Menue::menu_selectMachine()
+{
+	int selection = -1;
+
+	system("cls"); //Clear console
+
+	cout << "== CocktailMix | Select a machine == " << endl << endl
+		<< "[1] - Simulate Cocktail Machine" << endl
+		<< "[2] - Run Real Cocktail Machine" << endl << endl;
+
+	cout << "\nSelection: ";
+
+	cin >> selection;
+
+	while (cin.fail()) //catch input errors
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Enter a NUMBER: ";
+		cin >> selection;
+	}
+
+	switch (selection)
+	{
+	case 1:  //print submenu make cocktails
+	{
+		return 1;
+		break;
+	}
+	case 2:  //print submenu configure cocktails
+	{
+		return 2;
+		break;
+	}
+	default: //wrong selection
+	{
+		menu_selectMachine();
+		break;
+	}
+	}
+}
+
 void Menue::menu_main() //print main menu to console and get user selection
 {
 	system("cls"); //Clear console
@@ -79,7 +121,7 @@ void Menue::submenu_make()
 	else if (selection <= selectionSubmenu_make().size()) //compare if input is in available selection range (= number of cocktails provided in settings)
 	{
 		system("cls");
-		selectionSubmenu_make()[selection]->print(); //print selected cocktail
+		this->machine->makeCocktail(selectionSubmenu_make()[selection]); //print selected cocktail
 		system("pause");
 		submenu_make(); //show submenu again
 		return;
@@ -283,8 +325,33 @@ string Menue::assembleSubmenu_make()
 
 	for (vector<Cocktail*>::iterator it = cocktails.begin(); it != cocktails.end(); ++it) //iterate through vector of cocktails
 	{
-		i++;
-		cocktailList.append("[" + to_string(i) + "]" + " - " + it[0]->getName() + "\n"); //append cocktails to string
+		bool mixable = false;
+
+		for (Ingredient ingredient : it[0]->getIngredients())
+		{
+			for (Dispenser* dispenser : this->machine->getDispensers())
+			{
+				if (ingredient.getName() == dispenser->getIngredient().getName())
+				{
+					mixable = true;
+					break;
+				}
+				else
+				{
+					mixable = false;
+				}
+			}
+
+			if (mixable == false)
+			{
+				break;
+			}
+		}
+		if (mixable)
+		{
+			i++;
+			cocktailList.append("[" + to_string(i) + "]" + " - " + it[0]->getName() + "\n"); //append cocktails to string
+		}
 	}
 	return cocktailList;
 }
@@ -304,9 +371,35 @@ map<int, Cocktail*> Menue::selectionSubmenu_make()
 
 	for (vector<Cocktail*>::iterator it = cocktails.begin(); it != cocktails.end(); ++it) //iterate through vector of cocktails
 	{
-		i++;
-		cocktailMap[i] = it[0]; //save pointer to cocktail in map, need for dynamic selection (=> cocktailMap[selection] = pntr to selected cocktail)
+		bool mixable = false;
+
+		for (Ingredient ingredient : it[0]->getIngredients())
+		{
+			for (Dispenser* dispenser : this->machine->getDispensers())
+			{
+				if (ingredient.getName() == dispenser->getIngredient().getName())
+				{
+					mixable = true;
+					break;
+				}
+				else
+				{
+					mixable = false;
+				}
+			}
+
+			if (mixable == false)
+			{
+				break;
+			}
+		}
+		if (mixable)
+		{
+			i++;
+			cocktailMap[i] = it[0]; //save pointer to cocktail in map, need for dynamic selection (=> cocktailMap[selection] = pntr to selected cocktail)
+		}
 	}
+
 	return cocktailMap;
 }
 

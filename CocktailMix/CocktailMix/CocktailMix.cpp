@@ -8,6 +8,7 @@
 #include "Menue.h"
 #include "CocktailMachine.h"
 #include "CocktailSimulator.h"
+#include "CocktailBot.h"
 
 #include <iostream>
 #include <string>
@@ -39,12 +40,21 @@ MAIN
 */
 int main()
 {
+	int selection = 0;
+	CocktailMachine* machine = nullptr;
 	//createSettingsFile();
-	CocktailMachine* machine = new CocktailSimulator();
-	//Menue* menue = new Menue(VERSION, machine); //constructor call starts menu 
-	//delete menue;
+	selection = Menue::menu_selectMachine();
+
+	if (selection == 1)
+		machine = new CocktailSimulator();
+	if (selection == 2)
+		machine = new CocktailBot();
+
+
 	Menue::createMenue(VERSION, machine);
+
 	delete (CocktailSimulator*)machine; //Cast to CocktailSimulator, otherwise destructor cannot be called
+	
 	Menue::releaseMenue();
 	return 0;
 }

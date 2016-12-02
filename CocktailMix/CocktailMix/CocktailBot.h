@@ -8,6 +8,7 @@ public:
 	CocktailBot();
 	~CocktailBot();
 
-
+	void makeCocktail(Cocktail* cocktail);
+	void makeCocktail(int i);
 };
 
