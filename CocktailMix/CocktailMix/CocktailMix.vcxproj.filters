@@ -16,6 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="Cocktail.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Dispenser.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -45,6 +51,9 @@
     <ClInclude Include="CocktailBot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DispenserApi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CocktailBot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DispenserApi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

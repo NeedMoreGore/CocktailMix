@@ -1,6 +1,10 @@
 #pragma once
 
 #include "CocktailMachine.h"
+#include "DispenserApi.h"
+#include <chrono>
+#include <thread>
+#include "Ingredient.h"
 
 class CocktailBot : public CocktailMachine
 {

@@ -36,6 +36,12 @@ void CocktailSimulator::makeCocktail(int i)
 	cocktails.at(i)->print();
 }
 
+/*
+Display status (ON / OFF) of each dispenser
+
+@param int& second : reference to runtime in seconds
+*/
+
 void CocktailSimulator::printDispenserStatus(int& second)
 {
 	string flowStatus = "  " + to_string(second) +  "\t - \t";
@@ -52,6 +58,10 @@ void CocktailSimulator::printDispenserStatus(int& second)
 
 	cout << flowStatus << endl;
 }
+
+/*
+Initialize array with quantity (in ml) of each ingredient
+*/
 void CocktailSimulator::loadDispenserFlow(Cocktail* cocktail)
 {
 	vector<Ingredient> ingredients = cocktail->getIngredients();
@@ -68,6 +78,9 @@ void CocktailSimulator::loadDispenserFlow(Cocktail* cocktail)
 	}
 }
 
+/*
+Control flow of each dispenser
+*/
 void CocktailSimulator::controlDispenserFlow(Cocktail* cocktail, bool& running)
 {
 	int second = 0;

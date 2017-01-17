@@ -383,15 +383,11 @@ map<int, Cocktail*> Menue::selectionSubmenu_make()
 					break;
 				}
 				else
-				{
 					mixable = false;
-				}
 			}
 
 			if (mixable == false)
-			{
 				break;
-			}
 		}
 		if (mixable)
 		{

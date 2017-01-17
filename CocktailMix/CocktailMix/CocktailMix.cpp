@@ -1,6 +1,5 @@
 // CocktailMix.cpp : Defines the entry point for the console application.
 //
-
 #include "stdafx.h"
 #include "Ingredient.h"
 #include "Cocktail.h"
@@ -19,7 +18,7 @@
 
 using namespace std;
 
-const string VERSION = "0.2";
+const string VERSION = "0.4";
 
 
 void createSettingsFile() //create test data
@@ -50,12 +49,15 @@ int main()
 	if (selection == 2)
 		machine = new CocktailBot();
 
-
 	Menue::createMenue(VERSION, machine);
 
-	delete (CocktailSimulator*)machine; //Cast to CocktailSimulator, otherwise destructor cannot be called
+	if (selection == 1)
+		delete (CocktailSimulator*)machine;
+	if (selection == 2)
+		delete (CocktailBot*)machine;
 	
 	Menue::releaseMenue();
+
 	return 0;
 }
 
